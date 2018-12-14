@@ -13,11 +13,22 @@ namespace Puzzles
 
             new TaskData(new DayTwoTaskOne(), "task21","task21"),
             new TaskData(new DayTwoTaskTwo(), "task22","task22"),
+
+            new TaskData(new DayThreeTaskOne(), "task31","task31"),
         };
 
         static void Main(string[] args)
         {
-            TrySolveAll();
+            var solver = new Solver();
+
+            var task = new DayThreeTaskOne();
+            var taskData = "task31";
+
+
+            var data = new TaskData(task, taskData);
+
+            Console.WriteLine(solver.TrySolve(data));
+            Console.ReadLine();
         }
 
         private static void TrySolveAll()

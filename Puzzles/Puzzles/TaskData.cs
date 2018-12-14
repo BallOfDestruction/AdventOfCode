@@ -6,7 +6,7 @@
         public string Data { get; }
         public string Answer{ get; }
 
-        public TaskData(ITask task, string data, string answer)
+        public TaskData(ITask task, string data, string answer = "")
         {
             Task = task;
             Data = data;

@@ -10,10 +10,14 @@
     <None Remove="DataAnswer\task12.txt" />
     <None Remove="DataAnswer\task21.txt" />
     <None Remove="DataAnswer\task22.txt" />
+    <None Remove="DataAnswer\task31.txt" />
+    <None Remove="DataAnswer\task32.txt" />
     <None Remove="DataTest\task11.txt" />
     <None Remove="DataTest\task12.txt" />
     <None Remove="DataTest\task21.txt" />
     <None Remove="DataTest\task22.txt" />
+    <None Remove="DataTest\task31.txt" />
+    <None Remove="DataTest\task32.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +33,12 @@
     <EmbeddedResource Include="DataAnswer\task22.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="DataAnswer\task31.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAnswer\task32.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataTest\task11.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -39,6 +49,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="DataTest\task22.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataTest\task31.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataTest\task32.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
