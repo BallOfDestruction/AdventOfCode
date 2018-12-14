@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Puzzles.Tasks
 {
+    /// <summary>
+	/// https://adventofcode.com/2018/day/3
+    /// </summary>
     public class DayThreeTaskOne : ITask
     {
         public string Solve(string input)
