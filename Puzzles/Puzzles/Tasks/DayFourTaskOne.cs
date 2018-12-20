@@ -11,23 +11,22 @@ namespace Puzzles.Tasks
     {
         public string Solve(string input)
         {
-            var data = input.Split(new [] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries)
-                            .Select(w => new Duty(w))
-                            .OrderBy(w => w.DateTime)
-                            .ToList();
+            var data = input.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(w => new Duty(w))
+                .OrderBy(w => w.DateTime)
+                .ToList();
 
-            var dates = data.Select(w => w.DateTime).ToList();
-            var minDate = dates.Min();
-            var maxDate = dates.Max();
+            var allDates = data.Select(w => w.DateTime).ToList();
+            var minDate = allDates.Min();
+            var maxDate = allDates.Max();
 
-            var offset = maxDate.Date - minDate.Date;
             // Not sure about count days, but can take more
-            var days = (int)offset.TotalDays + 2;
+            var countDays = (int)(maxDate.Date - minDate.Date).TotalDays + 2;
 
-            var arrays = new int[days, 60];
+            var sleepGuardInfo = new int[countDays, 60];
 
-            var currentID = -1;
-            Duty dutySleep = null;
+            var guardId = -1;
+            Duty lastSleepDuty = null;
 
             // FILL THE DATA
             // Исходя из данных, нет таких случаев, когда стражник проспал сутки,
@@ -37,61 +36,61 @@ namespace Puzzles.Tasks
                 switch (duty.Operation)
                 {
                     case Operation.BeginShift:
-                        currentID = duty.GuardId;
+                        guardId = duty.GuardId;
                         break;
                     case Operation.FallsAsleep:
-                        dutySleep = duty;
+                        lastSleepDuty = duty;
                         break;
                     case Operation.WakesUp:
-                        if (dutySleep != null)
+                        if (lastSleepDuty != null)
                         {
-                            var startDate = dutySleep.DateTime;
+                            var startDate = lastSleepDuty.DateTime;
                             var endDate = duty.DateTime;
                             var dayIndex = (startDate.Date - minDate.Date).Days;
 
                             for (var i = startDate.Minute; i < endDate.Minute; i++)
                             {
-                                arrays[dayIndex, i] = currentID;
+                                sleepGuardInfo[dayIndex, i] = guardId;
                             }
                         }
                         break;
                 }
             }
-            
-            var dicDutyById = new Dictionary<int, int>();
-            for (var i = 0; i < days; i++)
+
+            var countSleepMinutes = new Dictionary<int, int>();
+            for (var i = 0; i < countDays; i++)
             {
                 for (var j = 0; j < 60; j++)
                 {
-                    var item = arrays[i, j];
-                    if (item == 0 || item == -1) continue;
+                    var sleepingGuardId = sleepGuardInfo[i, j];
+                    if (sleepingGuardId == 0 || sleepingGuardId == -1) continue;
 
-                    if (dicDutyById.ContainsKey(item))
-                        dicDutyById[item]++;
+                    if (countSleepMinutes.ContainsKey(sleepingGuardId))
+                        countSleepMinutes[sleepingGuardId]++;
                     else
-                        dicDutyById.Add(item, 1);
+                        countSleepMinutes.Add(sleepingGuardId, 1);
                 }
             }
 
-            var array = new int[60];
-            var mostlyItem = dicDutyById.OrderByDescending(w => w.Value).First().Key;
+            var countSleepDayPerMinute = new int[60];
+            var theMostSleepGuardId = countSleepMinutes.OrderByDescending(w => w.Value).First().Key;
             for (var i = 0; i < 60; i++)
             {
-                var count = 0;
+                var countSleepDayByThisGuard = 0;
 
-                for (var j = 0; j < days; j++)
+                for (var j = 0; j < countDays; j++)
                 {
-                    if (arrays[j, i] == mostlyItem)
-                        count++;
+                    if (sleepGuardInfo[j, i] == theMostSleepGuardId)
+                        countSleepDayByThisGuard++;
                 }
 
-                array[i] = count;
+                countSleepDayPerMinute[i] = countSleepDayByThisGuard;
             }
 
-            var max = array.Max();
-            var minute = array.ToList().IndexOf(max);
+            var mostlySleepCount = countSleepDayPerMinute.Max();
+            var mostlySleepMinute = countSleepDayPerMinute.ToList().IndexOf(mostlySleepCount);
 
-            return (mostlyItem * minute).ToString();
+            return (theMostSleepGuardId * mostlySleepMinute).ToString();
         }
 
         private class Duty

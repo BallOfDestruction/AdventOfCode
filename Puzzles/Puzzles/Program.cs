@@ -16,16 +16,19 @@ namespace Puzzles
 
             new TaskData(new DayThreeTaskOne(), "task31","task31"),
             new TaskData(new DayThreeTaskTwo(), "task32","task32"),
+
+            new TaskData(new DayFourTaskOne(), "task41","task41"),
+            new TaskData(new DayFourTaskTwo(), "task42","task42"),
         };
 
         static void Main(string[] args)
         {
-//            CheckAll();
+            CheckAll();
 
             var solver = new Solver();
 
-            var task = new DayFourTaskOne();
-            var taskData = "task41";
+            var task = new DayFourTaskTwo();
+            var taskData = "task42";
 
 
             var data = new TaskData(task, taskData);
