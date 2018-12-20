@@ -23,17 +23,18 @@ namespace Puzzles
 
         static void Main(string[] args)
         {
-            CheckAll();
+            //CheckAll();
 
             var solver = new Solver();
 
-            var task = new DayFourTaskTwo();
-            var taskData = "task42";
+            var task = new DayFiveTaskOne();
+            var taskData = "task51";
 
 
             var data = new TaskData(task, taskData);
 
-            Console.WriteLine(solver.TrySolve(data));
+            var answer = solver.TrySolve(data);
+            Console.WriteLine(answer);
             Console.ReadLine();
         }
 
