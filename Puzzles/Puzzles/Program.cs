@@ -19,6 +19,9 @@ namespace Puzzles
 
             new TaskData(new DayFourTaskOne(), "task41","task41"),
             new TaskData(new DayFourTaskTwo(), "task42","task42"),
+
+            new TaskData(new DayFiveTaskOne(), "task51","task51"),
+            new TaskData(new DayFiveTaskTwo(), "task52","task52"),
         };
 
         static void Main(string[] args)
@@ -27,8 +30,8 @@ namespace Puzzles
 
             var solver = new Solver();
 
-            var task = new DayFiveTaskOne();
-            var taskData = "task51";
+            var task = new DayFiveTaskTwo();
+            var taskData = "task52";
 
 
             var data = new TaskData(task, taskData);
