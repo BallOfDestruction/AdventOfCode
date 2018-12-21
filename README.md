@@ -1,14 +1,13 @@
-## Solves
+# Solves
 
-# Be careful, spoilers
+## Be careful, spoilers
 
 
 https://adventofcode.com/2018/
 
-My account:
-Asura
+### My account: Asura
 
-Solution don't best performance, but give right answer
+Solutions don't have best performance, but give right answer
 
 
 [DayOneTaskOne] Elapsed time: 16 mls<br>
