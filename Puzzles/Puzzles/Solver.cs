@@ -9,9 +9,14 @@ namespace Puzzles
         {
             var inputString = File.ReadAllText($"DataTest\\{taskData.Data}.txt");
 
-            var solve = taskData.Task.Solve(inputString);
+            var solve = Solve(taskData, inputString);
 
             return solve;
+        }
+
+        protected virtual string Solve(TaskData taskData, string input)
+        {
+            return taskData.Task.Solve(input);
         }
 
         public bool CheckSolve(TaskData taskData)
@@ -19,7 +24,7 @@ namespace Puzzles
             var inputString = File.ReadAllText($"DataTest\\{taskData.Data}.txt");
             var answer = File.ReadAllText($"DataAnswer\\{taskData.Answer}.txt");
 
-            var solve = taskData.Task.Solve(inputString);
+            var solve = Solve(taskData, inputString);
 
             return solve.Equals(answer, StringComparison.InvariantCultureIgnoreCase);
         }

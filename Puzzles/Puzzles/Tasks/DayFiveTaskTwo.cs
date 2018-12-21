@@ -27,21 +27,11 @@ namespace Puzzles.Tasks
 
         private string React(string input)
         {
-            var longString = input;
+            var removeReactPolymers = RemoveReactPolymers(input);
 
-            while (true)
-            {
-                var removeReactPolymers = RemoveReactPolymers(longString);
-
-                if (removeReactPolymers == longString)
-                    break;
-
-                longString = removeReactPolymers;
-            }
-
-            return longString;
+            return removeReactPolymers;
         }
-        
+
         private string RemoveReactPolymers(string input)
         {
             for (var index = 0; index < input.Length - 1; index++)
@@ -60,7 +50,10 @@ namespace Puzzles.Tasks
 
                 if (isOpposite)
                 {
-                    return input.Remove(index, 2);
+                    input = input.Remove(index, 2);
+                    index -= 2;
+                    if (index < 0)
+                        index = 0;
                 }
             }
 

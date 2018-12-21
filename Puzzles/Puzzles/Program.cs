@@ -29,24 +29,24 @@ namespace Puzzles
 
         static void Main(string[] args)
         {
-            //CheckAll();
+            CheckAll();
 
-            var solver = new Solver();
+            var solver = new ElapsedSolver();
 
-            var task = new DaySevenTaskOne();
-            var taskData = "task71";
+            var task = new DayFiveTaskOne();
+            var taskData = "task51";
 
 
-            var data = new TaskData(task, taskData);
+            var data = new TaskData(task, taskData, taskData);
 
-            var answer = solver.TrySolve(data);
+            var answer = solver.CheckSolve(data);
             Console.WriteLine(answer);
             Console.ReadLine();
         }
 
         private static void TrySolveAll()
         {
-            var solver = new Solver();
+            var solver = new ElapsedSolver();
 
             Tasks.ForEach(w => Console.WriteLine(solver.TrySolve(w)));
 
@@ -55,7 +55,7 @@ namespace Puzzles
 
         private static void CheckAll()
         {
-            var solver = new Solver();
+            var solver = new ElapsedSolver();
 
             Tasks.ForEach(w => Console.WriteLine(solver.CheckSolve(w)));
 

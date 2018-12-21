@@ -9,19 +9,9 @@ namespace Puzzles.Tasks
     {
         public string Solve(string input)
         {
-            var longString = input;
+            var removeReactPolymers = RemoveReactPolymers(input);
 
-            while (true)
-            {
-                var removeReactPolymers = RemoveReactPolymers(longString);
-
-                if(removeReactPolymers == longString)
-                    break;
-
-                longString = removeReactPolymers;
-            }
-
-            return longString.Length.ToString();
+            return removeReactPolymers.Length.ToString();
         }
 
         private string RemoveReactPolymers(string input)
@@ -42,7 +32,10 @@ namespace Puzzles.Tasks
 
                 if (isOpposite)
                 {
-                    return input.Remove(index, 2);
+                    input = input.Remove(index, 2);
+                    index -= 2;
+                    if (index < 0)
+                        index = 0;
                 }
             }
 
