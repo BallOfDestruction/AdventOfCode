@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Puzzles.Tasks
@@ -87,7 +86,8 @@ namespace Puzzles.Tasks
 
             public Coordinate(string input, int index)
             {
-                var data = input.Split(new[] {' ', ','}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse)
+                var data = input.Split(new[] {' ', ','}, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse)
                     .ToArray();
                 X = data[0];
                 Y = data[1];
