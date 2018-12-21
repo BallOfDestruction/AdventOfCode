@@ -14,7 +14,7 @@ namespace Puzzles
 
             timer.Stop();
 
-            Console.WriteLine($"Elapsed time: {timer.ElapsedMilliseconds} mls");
+            Console.WriteLine($"[{taskData.Task.GetType().Name}] Elapsed time: {timer.ElapsedMilliseconds} mls");
 
             return answer;
         }
