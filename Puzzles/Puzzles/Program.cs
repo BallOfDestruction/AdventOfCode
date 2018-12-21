@@ -30,8 +30,8 @@ namespace Puzzles
 
             var solver = new Solver();
 
-            var task = new DayFiveTaskTwo();
-            var taskData = "task52";
+            var task = new DaySixTaskOne();
+            var taskData = "task61";
 
 
             var data = new TaskData(task, taskData);
