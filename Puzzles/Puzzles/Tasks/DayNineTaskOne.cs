@@ -14,7 +14,7 @@ namespace Puzzles.Tasks
             var playersCount = int.Parse(data[0]);
             var worthLastMarble = int.Parse(data[6]);
 
-            var marbles = Enumerable.Range(1, worthLastMarble).Select(w => new Marble(w)).ToList();
+            var marbles = Enumerable.Range(1, worthLastMarble).Select(w => new Marble(w)).ToArray();
             var players = Enumerable.Range(1, playersCount).Select(w => new Player()).ToList();
 
             for (var i = 0; i < players.Count - 1; i++)
@@ -30,10 +30,9 @@ namespace Puzzles.Tasks
             var currentPlayer = players[0];
             var currentMarble = firstMarble;
 
-            while (marbles.Any())
+            for (var j = 0; j < worthLastMarble; j++)
             {
-                var marble = marbles.First();
-                marbles.RemoveAt(0);
+                var marble = marbles[j];
 
                 if (marble.Worth % 23 == 0)
                 {
@@ -46,6 +45,7 @@ namespace Puzzles.Tasks
                         revertMarble = revertMarble.PreviousMarble;
                     }
 
+                    // Remove from two-way link list
                     currentMarble = revertMarble.NextMarble;
                     currentPlayer.Score += revertMarble.Worth;
 
@@ -54,6 +54,7 @@ namespace Puzzles.Tasks
                 }
                 else
                 {
+                    // Insert in two-way link list
                     var afterMarble = currentMarble.NextMarble;
                     var nextAfterMarble = afterMarble.NextMarble;
 

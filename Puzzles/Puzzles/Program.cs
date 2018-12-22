@@ -32,15 +32,18 @@ namespace Puzzles
 
             new TaskData(new DayEightTaskOne(), "task81","task81"),
             new TaskData(new DayEightTaskTwo(), "task82","task82"),
+
+            new TaskData(new DayNineTaskOne(), "task91","task91"),
+            new TaskData(new DayNineTaskTwo(), "task92","task92"),
         };
 
         static void Main(string[] args)
         {
-            //CheckAll();
+            CheckAll();
 
             var solver = new ElapsedSolver();
 
-            var task = new DayNineTaskOne();
+            var task = new DayNineTaskTwo();
             var taskData = "task91";
 
 
