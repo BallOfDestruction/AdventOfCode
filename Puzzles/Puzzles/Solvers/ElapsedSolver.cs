@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Puzzles
+namespace Puzzles.Solvers
 {
     public class ElapsedSolver : Solver
     {

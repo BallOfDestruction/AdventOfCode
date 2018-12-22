@@ -1,4 +1,4 @@
-﻿namespace Puzzles
+﻿namespace Puzzles.Solvers
 {
     public struct TaskData
     {

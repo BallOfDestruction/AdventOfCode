@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Puzzles.Solvers;
 using Puzzles.Tasks;
 
 namespace Puzzles
@@ -35,7 +36,7 @@ namespace Puzzles
 
         static void Main(string[] args)
         {
-            CheckAll();
+            //CheckAll();
 
             var solver = new ElapsedSolver();
 
