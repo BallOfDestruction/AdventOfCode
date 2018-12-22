@@ -38,7 +38,7 @@ namespace Puzzles.Tasks
 
         private class Node
         {
-            public List<int> Metadata { get; set; }
+            public List<int> Metadata { get; }
 
             public Node(List<int> metadata)
             {
