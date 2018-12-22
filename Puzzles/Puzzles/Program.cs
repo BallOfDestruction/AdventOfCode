@@ -32,12 +32,12 @@ namespace Puzzles
 
         static void Main(string[] args)
         {
-            CheckAll();
+            //CheckAll();
 
             var solver = new ElapsedSolver();
 
-            var task = new DaySevenTaskTwo();
-            var taskData = "task72";
+            var task = new DayEightTaskOne();
+            var taskData = "task81";
 
 
             var data = new TaskData(task, taskData, taskData);
