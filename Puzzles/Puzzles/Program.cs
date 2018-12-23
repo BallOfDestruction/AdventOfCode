@@ -46,7 +46,7 @@ namespace Puzzles
 
             var solver = new ElapsedSolver();
 
-            var task = new DayElevenTaskOne();
+            var task = new DayElevenTaskTwo();
             var taskData = "task11_1";
 
 

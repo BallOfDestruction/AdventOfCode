@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace Puzzles.Tasks
 {
@@ -27,6 +26,8 @@ namespace Puzzles.Tasks
                 }
             }
 
+            GridInfo maxGridInfo = null;
+
             var listOfGridInfo = new List<GridInfo>();
             for (int i = 0; i < maxX - GridInfo.Wight; i++)
             {
@@ -42,14 +43,12 @@ namespace Puzzles.Tasks
                         }
                     }
 
-                    listOfGridInfo.Add(new GridInfo(i, j, amountOfAll));
+                    if (maxGridInfo == null || maxGridInfo.AmountPower < amountOfAll)
+                        maxGridInfo = new GridInfo(i, j, amountOfAll);
                 }
             }
 
-            var min = listOfGridInfo.Select(w => w.AmountPower).Max();
-            var item = listOfGridInfo.First(w => w.AmountPower == min);
-
-            return $"{item.X},{item.Y}";
+            return $"{maxGridInfo.X},{maxGridInfo.Y}";
         }
 
         private class GridInfo
