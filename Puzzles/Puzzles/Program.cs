@@ -37,6 +37,7 @@ namespace Puzzles
             new TaskData(new DayNineTaskTwo(), "task92","task92"),
 
             new TaskData(new DayTenTaskOne(), "task10_1","task10_1"),
+            new TaskData(new DayTenTaskTwo(), "task10_2","task10_2"),
         };
 
         static void Main(string[] args)
@@ -45,13 +46,13 @@ namespace Puzzles
 
             var solver = new ElapsedSolver();
 
-            var task = new DayTenTaskOne();
-            var taskData = "task10_1";
+            var task = new DayTenTaskTwo();
+            var taskData = "task10_2";
 
 
             var data = new TaskData(task, taskData, taskData);
 
-            var answer = solver.CheckSolve(data);
+            var answer = solver.TrySolve(data);
             Console.WriteLine(answer);
             Console.ReadLine();
         }
