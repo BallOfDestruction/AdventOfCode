@@ -35,21 +35,23 @@ namespace Puzzles
 
             new TaskData(new DayNineTaskOne(), "task91","task91"),
             new TaskData(new DayNineTaskTwo(), "task92","task92"),
+
+            new TaskData(new DayTenTaskOne(), "task10_1","task10_1"),
         };
 
         static void Main(string[] args)
         {
-            CheckAll();
+            //CheckAll();
 
             var solver = new ElapsedSolver();
 
-            var task = new DayNineTaskTwo();
-            var taskData = "task91";
+            var task = new DayTenTaskOne();
+            var taskData = "task10_1";
 
 
             var data = new TaskData(task, taskData, taskData);
 
-            var answer = solver.TrySolve(data);
+            var answer = solver.CheckSolve(data);
             Console.WriteLine(answer);
             Console.ReadLine();
         }

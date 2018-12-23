@@ -71,7 +71,7 @@ namespace Puzzles.Tasks
         private class WorkerData
         {
             public int NeedTime { get; set; }
-            public char Key { get; set; }
+            public char Key { get; }
 
             public WorkerData(int needTime, char key)
             {

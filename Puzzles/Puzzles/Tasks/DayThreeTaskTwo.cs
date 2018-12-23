@@ -68,7 +68,7 @@ namespace Puzzles.Tasks
 
         private class Coordinates
         {
-            public int Id { get; set; }
+            public int Id { get; }
 
             public int X { get; }
             public int Y { get; }

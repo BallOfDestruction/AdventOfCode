@@ -74,8 +74,8 @@ namespace Puzzles.Tasks
         private class Node
         {
             public long Worth { get; set; }
-            public List<int> Metadata { get; set; }
-            public List<Node> ChildNodes { get; set; }
+            public List<int> Metadata { get; }
+            public List<Node> ChildNodes { get; }
 
             public Node(List<int> metadata, List<Node> childNodes)
             {
