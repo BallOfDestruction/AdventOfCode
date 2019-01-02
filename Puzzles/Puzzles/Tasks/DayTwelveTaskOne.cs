@@ -98,8 +98,8 @@ namespace Puzzles.Tasks
 
         private class Rule
         {
-            public bool[] Input { get; set; }
-            public bool Output { get; set; }
+            public bool[] Input { get; }
+            public bool Output { get; }
 
             public Rule(string data)
             {
@@ -117,7 +117,7 @@ namespace Puzzles.Tasks
 
         private class Cell
         {
-            public int Position { get; set; }
+            public int Position { get; }
             public bool IsPlant { get; set; }
 
             public Cell(int position, char plant)

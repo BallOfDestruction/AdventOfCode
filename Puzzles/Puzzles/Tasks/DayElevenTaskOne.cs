@@ -56,10 +56,10 @@ namespace Puzzles.Tasks
             public const int Height = 3;
             public const int Wight = 3;
 
-            public int X { get; set; }
-            public int Y { get; set; }
+            public int X { get; }
+            public int Y { get; }
 
-            public long AmountPower { get; set; }
+            public long AmountPower { get; }
 
             public GridInfo(int x, int y, long amountPower)
             {
@@ -71,8 +71,8 @@ namespace Puzzles.Tasks
 
         private class Cell
         {
-            public int X { get; set; }
-            public int Y { get; set; }
+            public int X { get; }
+            public int Y { get; }
 
             public int Power { get; set; }
 

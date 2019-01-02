@@ -8,59 +8,74 @@ namespace Puzzles.Tasks
     /// </summary>
     public class DayElevenTaskTwo : ITask
     {
+        private const int MaxX = 300;
+        private const int MaxY = 300;
+
         public string Solve(string input)
         {
             var gridSerialNumber = int.Parse(input);
 
-            var maxX = 300;
-            var maxY = 300;
-            var arrayCells = new Cell[maxX][];
-            for (int i = 0; i < maxX; i++)
-                arrayCells[i] = new Cell[maxY];
+            var arrayCells = InitArrayCell(MaxX, MaxY, gridSerialNumber);
 
-            for (int i = 0; i < maxX; i++)
-            {
-                for (int j = 0; j < maxY; j++)
-                {
-                    arrayCells[i][j] = new Cell(i, j, gridSerialNumber);
-                }
-            }
+            var answer = FindMaxSquare(arrayCells);
 
+            return $"{answer.X},{answer.Y},{answer.Size}";
+        }
+
+        private GridInfo FindMaxSquare(Cell[][] arrayCells)
+        {
             GridInfo maxGridInfo = null;
 
             // Can be optimize by dynamic solution
-            for (int size = 1; size <= maxX; size++)
+            for (var size = 1; size <= MaxX; size++)
             {
-                for (int i = 0; i < maxX - size; i++)
+                for (var x = 0; x < MaxX - size; x++)
                 {
-                    for (int j = 0; j < maxY - size; j++)
+                    for (var y = 0; y < MaxY - size; y++)
                     {
                         long amountOfAll = 0;
 
-                        for (int ii = 0; ii < size; ii++)
+                        for (var xx = 0; xx < size; xx++)
                         {
-                            for (int jj = 0; jj < size; jj++)
+                            for (var yy = 0; yy < size; yy++)
                             {
-                                amountOfAll += arrayCells[ii + i][jj + j].Power;
+                                amountOfAll += arrayCells[xx + x][yy + y].Power;
                             }
                         }
 
                         if (maxGridInfo == null || maxGridInfo.AmountPower < amountOfAll)
-                            maxGridInfo = new GridInfo(i, j, size, amountOfAll);
+                            maxGridInfo = new GridInfo(x, y, size, amountOfAll);
                     }
                 }
             }
 
-            return $"{maxGridInfo.X},{maxGridInfo.Y},{maxGridInfo.Size}";
+            return maxGridInfo;
+        }
+
+        private static Cell[][] InitArrayCell(int maxX, int maxY, int gridSerialNumber)
+        {
+            var arrayCells = new Cell[maxX][];
+            for (var i = 0; i < maxX; i++)
+                arrayCells[i] = new Cell[maxY];
+
+            for (var x = 0; x < maxX; x++)
+            {
+                for (var y = 0; y < maxY; y++)
+                {
+                    arrayCells[x][y] = new Cell(x, y, gridSerialNumber);
+                }
+            }
+
+            return arrayCells;
         }
 
         private class GridInfo
         {
-            public int X { get; set; }
-            public int Y { get; set; }
-            public int Size { get; set; }
+            public int X { get; }
+            public int Y { get; }
+            public int Size { get; }
 
-            public long AmountPower { get; set; }
+            public long AmountPower { get; }
 
             public GridInfo(int x, int y, int size, long amountPower)
             {
@@ -73,8 +88,8 @@ namespace Puzzles.Tasks
 
         private class Cell
         {
-            public int X { get; set; }
-            public int Y { get; set; }
+            public int X { get; }
+            public int Y { get; }
 
             public int Power { get; set; }
 
