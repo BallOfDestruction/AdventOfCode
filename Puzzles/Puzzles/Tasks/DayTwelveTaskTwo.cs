@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Puzzles.Tasks
 {
+    // Maybe in future this solution will be more ... comfortable
     /// <summary>
     /// https://adventofcode.com/2018/day/12
     /// </summary>
@@ -11,107 +12,138 @@ namespace Puzzles.Tasks
     {
         private const int InputLength = 5;
         private const long CountGeneration = 50000000000;
+        private const int Step = 10;
 
         public string Solve(string input)
         {
             var splitData = input.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
 
             var initData = splitData[0].Replace("initial state: ", "");
-            var rules = splitData.Skip(1).ToList();
 
-            var container = new LineContainer(initData);
-            var rulesList = rules.Select(w => new Rule(w)).ToList();
+            var plantsLine = new PlantsLineContainer(initData);
+            var rulesList = splitData.Skip(1).Select(w => new Rule(w)).ToList();
+
+            long? lastDiff = null;
+            long? lastValue = null;
+            long? breakGeneration = null;
 
             for (var generation = 0L; generation < CountGeneration; generation++)
             {
-                var nextGeneration = container.Position.Select(w => w.Copy()).ToList();
-
-                if (generation % 100 == 0)
+                // The idea is that initially increases non-linear, but after increases become linear
+                if (generation % Step == 0)
                 {
-                    Console.WriteLine(generation);
-                    Console.WriteLine(container.ToAnswer());
+                    var answer = plantsLine.ToAnswer();
+
+                    if (!lastValue.HasValue)
+                    {
+                        lastValue = answer;
+                    }
+                    else
+                    {
+                        var diff = answer - lastValue;
+
+                        if (!lastDiff.HasValue)
+                        {
+                            lastDiff = diff;
+                        }
+                        else
+                        {
+                            lastValue = answer;
+                            if (lastDiff == diff)
+                            {
+                                breakGeneration = generation;
+                                break;
+                            }
+                            else
+                            {
+                                lastDiff = diff;
+                            }
+                        }
+                    }
                 }
 
-                //Console.WriteLine(container.Position.Aggregate("", (s, cell) => s + (cell.IsPlant ? "#" : ".")));
+                var nextGeneration = plantsLine.Position.Select(w => w.Copy()).ToList();
 
-                for (var i = 2; i < container.Position.Count - 2; i++)
+                //Console.WriteLine(container.Position.Aggregate("", (s, cell) => s + (cell.IsHavePlant ? "#" : ".")));
+
+                for (var i = 2; i < plantsLine.Position.Count - 2; i++)
                 {
-                    var prePreCell = container.Position[i - 2];
-                    var preCell = container.Position[i - 1];
-                    var currentCell = container.Position[i];
-                    var nextCell = container.Position[i + 1];
-                    var nextNextCell = container.Position[i + 2];
+                    var prePreCell = plantsLine.Position[i - 2];
+                    var preCell = plantsLine.Position[i - 1];
+                    var currentCell = plantsLine.Position[i];
+                    var nextCell = plantsLine.Position[i + 1];
+                    var nextNextCell = plantsLine.Position[i + 2];
 
-                    var rightRules = rulesList.Where(w => w.IsRight(prePreCell.IsPlant, preCell.IsPlant,
-                        currentCell.IsPlant, nextCell.IsPlant, nextNextCell.IsPlant)).ToList();
+                    var rightRules = rulesList.Where(w => w.IsApplicable(prePreCell.IsHavePlant, preCell.IsHavePlant,
+                        currentCell.IsHavePlant, nextCell.IsHavePlant, nextNextCell.IsHavePlant)).ToList();
 
                     var currentRule = rightRules.FirstOrDefault();
                     if (currentRule != null)
-                        nextGeneration[i].IsPlant = currentRule.Output;
+                        nextGeneration[i].IsHavePlant = currentRule.Output;
                 }
 
-                var firstIsPlant = nextGeneration.Take(InputLength).TakeWhile(w => !w.IsPlant).ToList();
+                var firstIsPlant = nextGeneration.Take(InputLength).TakeWhile(w => !w.IsHavePlant).ToList();
                 if (firstIsPlant.Count < InputLength)
                 {
                     var first = nextGeneration.First();
                     for (var i = 0; i < InputLength - firstIsPlant.Count; i++)
                     {
-                        nextGeneration.Insert(0, new Cell(first.Position - i - 1, '.'));
+                        nextGeneration.Insert(0, new PlantCell(first.Position - i - 1, '.'));
                     }
                 }
 
                 var endIsPlant = nextGeneration.TakeLast(InputLength).ToList();
                 endIsPlant.Reverse();
-                endIsPlant = endIsPlant.TakeWhile(w => !w.IsPlant).ToList();
+                endIsPlant = endIsPlant.TakeWhile(w => !w.IsHavePlant).ToList();
                 if (endIsPlant.Count < InputLength)
                 {
                     var last = nextGeneration.Last();
                     for (var i = 0; i < InputLength - endIsPlant.Count; i++)
                     {
-                        nextGeneration.Add(new Cell(last.Position + i + 1, '.'));
+                        nextGeneration.Add(new PlantCell(last.Position + i + 1, '.'));
                     }
                 }
 
-                container.Position = nextGeneration;
+                plantsLine.Position = nextGeneration;
             }
 
-            return container.ToAnswer().ToString();
+            return (((CountGeneration - breakGeneration.Value) / Step * lastDiff.Value) + lastValue.Value).ToString();
         }
 
-        private class LineContainer
+        private class PlantsLineContainer
         {
-            public List<Cell> Position { get; set; } = new List<Cell>();
+            public List<PlantCell> Position { get; set; } = new List<PlantCell>();
 
-            public LineContainer(string initData)
+            public PlantsLineContainer(string initData)
             {
-                Position.Add(new Cell(-5, '.'));
-                Position.Add(new Cell(-4, '.'));
-                Position.Add(new Cell(-3, '.'));
-                Position.Add(new Cell(-2, '.'));
-                Position.Add(new Cell(-1, '.'));
+                Position.Add(new PlantCell(-5, '.'));
+                Position.Add(new PlantCell(-4, '.'));
+                Position.Add(new PlantCell(-3, '.'));
+                Position.Add(new PlantCell(-2, '.'));
+                Position.Add(new PlantCell(-1, '.'));
 
                 for (var index = 0; index < initData.Length; index++)
                 {
-                    Position.Add(new Cell(index, initData[index]));
+                    Position.Add(new PlantCell(index, initData[index]));
                 }
 
-                Position.Add(new Cell(initData.Length, '.'));
-                Position.Add(new Cell(initData.Length + 1, '.'));
-                Position.Add(new Cell(initData.Length + 2, '.'));
-                Position.Add(new Cell(initData.Length + 3, '.'));
-                Position.Add(new Cell(initData.Length + 4, '.'));
+                Position.Add(new PlantCell(initData.Length, '.'));
+                Position.Add(new PlantCell(initData.Length + 1, '.'));
+                Position.Add(new PlantCell(initData.Length + 2, '.'));
+                Position.Add(new PlantCell(initData.Length + 3, '.'));
+                Position.Add(new PlantCell(initData.Length + 4, '.'));
             }
 
             public long ToAnswer()
             {
-                return Position.Where(w => w.IsPlant).Sum(w => w.Position);
+                return Position.Where(w => w.IsHavePlant).Sum(w => w.Position);
             }
         }
 
         private class Rule
         {
-            public bool[] Input { get; set; }
-            public bool Output { get; set; }
+            public bool[] Input { get; }
+            public bool Output { get; }
 
             public Rule(string data)
             {
@@ -121,32 +153,32 @@ namespace Puzzles.Tasks
                 Output = splitData[1].Select(w => w == '#').First();
             }
 
-            public bool IsRight(params bool[] args)
+            public bool IsApplicable(params bool[] args)
             {
                 return !args.Where((t, i) => t != Input[i]).Any();
             }
         }
 
-        private class Cell
+        private class PlantCell
         {
-            public int Position { get; set; }
-            public bool IsPlant { get; set; }
+            public int Position { get; }
+            public bool IsHavePlant { get; set; }
 
-            public Cell(int position, char plant)
+            public PlantCell(int position, char plant)
             {
                 Position = position;
-                IsPlant = plant == '#';
+                IsHavePlant = plant == '#';
             }
 
-            private Cell(int position, bool isPlant)
+            private PlantCell(int position, bool isHavePlant)
             {
                 Position = position;
-                IsPlant = isPlant;
+                IsHavePlant = isHavePlant;
             }
 
-            public Cell Copy()
+            public PlantCell Copy()
             {
-                return new Cell(Position, false);
+                return new PlantCell(Position, false);
             }
         }
     }

@@ -41,11 +41,14 @@ namespace Puzzles
 
             new TaskData(new DayElevenTaskOne(), "task11_1","task11_1"),
             new TaskData(new DayElevenTaskTwo(), "task11_2","task11_2"),
+
+            new TaskData(new DayTwelveTaskOne(), "task12_1","task12_1"),
+            new TaskData(new DayTwelveTaskTwo(), "task12_2","task12_2"),
         };
 
         static void Main(string[] args)
         {
-            //CheckAll();
+            CheckAll();
 
             var solver = new ElapsedSolver();
 
