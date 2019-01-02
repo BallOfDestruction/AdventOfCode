@@ -24,3 +24,13 @@ Solutions don't have best performance, but give right answer
 [DaySixTaskTwo] Elapsed time: 339 mls<br>
 [DaySevenTaskOne] Elapsed time: 14 mls<br>
 [DaySevenTaskTwo] Elapsed time: 16 mls<br>
+[DayEightTaskOne] Elapsed time: 8 mls <br>
+[DayEightTaskTwo] Elapsed time: 6 mls <br>
+[DayNineTaskOne] Elapsed time: 72 mls <br>
+[DayNineTaskTwo] Elapsed time: 1522 mls <br>
+[DayTenTaskOne] Elapsed time: 692 mls <br>
+[DayTenTaskTwo] Elapsed time: 519 mls <br>
+[DayElevenTaskOne] Elapsed time: 12 mls <br>
+[DayElevenTaskTwo] Elapsed time: 5743 mls <br>
+[DayTwelveTaskOne] Elapsed time: 45 mls <br>
+[DayTwelveTaskTwo] Elapsed time: 131 mls <br>
