@@ -14,6 +14,8 @@
     <None Remove="DataAnswer\task12.txt" />
     <None Remove="DataAnswer\task12_1.txt" />
     <None Remove="DataAnswer\task12_2.txt" />
+    <None Remove="DataAnswer\task13_1.txt" />
+    <None Remove="DataAnswer\task13_2.txt" />
     <None Remove="DataAnswer\task21.txt" />
     <None Remove="DataAnswer\task22.txt" />
     <None Remove="DataAnswer\task31.txt" />
@@ -38,6 +40,8 @@
     <None Remove="DataTest\task12.txt" />
     <None Remove="DataTest\task12_1.txt" />
     <None Remove="DataTest\task12_2.txt" />
+    <None Remove="DataTest\task13_1.txt" />
+    <None Remove="DataTest\task13_2.txt" />
     <None Remove="DataTest\task21.txt" />
     <None Remove="DataTest\task22.txt" />
     <None Remove="DataTest\task31.txt" />
@@ -73,6 +77,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="DataAnswer\task12.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAnswer\task13_2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAnswer\task13_1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="DataAnswer\task12_1.txt">
@@ -130,6 +140,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="DataTest\task11_1.txt" />
+    <EmbeddedResource Include="DataTest\task13_2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataTest\task13_1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataTest\task12_1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

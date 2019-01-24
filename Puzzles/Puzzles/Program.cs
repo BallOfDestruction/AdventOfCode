@@ -48,13 +48,12 @@ namespace Puzzles
 
         static void Main(string[] args)
         {
-            CheckAll();
+            //CheckAll();
 
             var solver = new ElapsedSolver();
 
-            var task = new DayTwelveTaskTwo();
-            var taskData = "task12_2";
-
+            var task = new DayThirteenTaskOne();
+            var taskData = "task13_1";
 
             var data = new TaskData(task, taskData, taskData);
 
