@@ -9,6 +9,8 @@ https://adventofcode.com/2018/
 
 Solutions don't have best performance, but give right answer
 
+Solved up to 12.2
+
 
 [DayOneTaskOne] Elapsed time: 16 mls<br>
 [DayOneTaskTwo] Elapsed time: 28 mls<br>
