@@ -5,21 +5,36 @@ using Shared;
 namespace Puzzles_2018.Tasks
 {
     /// <summary>
-    /// https://adventofcode.com/2018/day/2
+    /// https://adventofcode.com/2019/day/2
     /// </summary>
     public class DayTwoTaskTwo : ITask
     {
         public string Solve(string input)
         {
-            var allStrings = input.Split(new[] {"\n", "\r"}, StringSplitOptions.RemoveEmptyEntries);
+            var array = input.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 
-            var answerList = (from item1 in allStrings.AsEnumerable()
-                    from item2 in allStrings.AsEnumerable()
-                    where item1 != item2
-                    select new string(item1.Where((t, i) => t == item2[i]).ToArray()))
-                .OrderByDescending(w => w.Length);
+            array[1] = 12;
+            array[2] = 2;
 
-            return answerList.FirstOrDefault();
+            for (var index = 0; index < array.Length;)
+            {
+                var item = array[index];
+
+                if (item == 1 || item == 2)
+                {
+                    var firstNumber = array[array[index + 1]];
+                    var secondNumner = array[array[index + 2]];
+                    var result = item == 1 ? firstNumber + secondNumner : firstNumber * secondNumner;
+                    array[array[index + 3]] = result;
+                    index += 4;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return array[0].ToString();
         }
     }
 }
