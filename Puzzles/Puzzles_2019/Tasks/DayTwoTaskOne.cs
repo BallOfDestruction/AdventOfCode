@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Shared;
 
@@ -12,20 +11,30 @@ namespace Puzzles_2019.Tasks
 	{
 		public string Solve(string input)
 		{
-			var allIds = input.Split(new[] {"\n", "\r"}, StringSplitOptions.RemoveEmptyEntries);
+			var array = input.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 
-			var items = new List<int>();
-			foreach (var allString in allIds)
-			{
-				var counts = allString.Distinct().Select(item => allString.Count(w => w == item)).Distinct();
-				items.AddRange(counts);
-			}
+            array[1] = 12;
+            array[2] = 2;
 
-			var answer = (from item in items.Distinct() where item != 1 select items.Count(w => w == item)).ToList();
+            for (var index = 0; index < array.Length; )
+            {
+                var item = array[index];
 
-			var answerInt = answer.Aggregate(1, (i, i1) => i * i1);
+                if (item == 1 || item == 2)
+                {
+                    var firstNumber = array[array[index + 1]];
+                    var secondNumner = array[array[index + 2]];
+                    var result = item == 1 ? firstNumber + secondNumner : firstNumber * secondNumner;
+                    array[array[index + 3]] = result;
+                    index += 4;
+                }
+                else
+                {
+                    break;
+                }
+            }
 
-			return answerInt.ToString();
-		}
+            return array[0].ToString();
+        }
 	}
 }
