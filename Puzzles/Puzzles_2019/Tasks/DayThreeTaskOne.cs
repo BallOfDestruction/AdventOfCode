@@ -14,7 +14,7 @@ namespace Puzzles_2019.Tasks
 
         public string Solve(string input)
         {
-            var wires = input.Split(new[]{'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Split(',').Select(w => new Command(w)).ToArray()).ToArray();
+            var wires = input.Split(new[]{'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Split(',').Select(c => new Command(c)).ToArray()).ToArray();
 
             var intersection = new List<(int x, int y)>();
 

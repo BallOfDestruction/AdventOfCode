@@ -6,85 +6,85 @@ using Shared;
 namespace Puzzles_2019.Tasks
 {
     /// <summary>
-	/// https://adventofcode.com/2018/day/3
+	/// https://adventofcode.com/2019/day/3
     /// </summary>
     public class DayThreeTaskTwo : ITask
     {
+        private const int SIZE = 80000;
+
         public string Solve(string input)
         {
-            var allStrings = input.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-            var allIntData = allStrings.Select(w =>
-                w.Split(new[] { '#', '@', ',', ':', 'x', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse)
-                    .ToArray());
+            var wires = input.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Split(',').Select(c => new Command(c)).ToArray()).ToArray();
 
-            var listData = allIntData.Select(w => new Coordinates(w[0], w[1], w[2], w[3], w[4])).ToList();
+            var intersection = new List<long>();
 
-            var maxWidth = listData.Select(w => w.X + w.Width).Max() + 1;
-            var maxHeight = listData.Select(w => w.Y + w.Height).Max() + 1;
+            var field = new int[SIZE][];
+            for (var i = 0; i < field.Length; i++)
+            {
+                field[i] = new int[SIZE];
+            }
 
-            var array = new int[maxWidth, maxHeight];
+            var fieldIsEnable = new bool[SIZE][];
+            for (var i = 0; i < fieldIsEnable.Length; i++)
+            {
+                fieldIsEnable[i] = new bool[SIZE];
+            }
 
-            listData.ForEach(w => Increment(array, w));
+            var center = SIZE / 2;
 
-            var answer = GetAnswer(array, listData);
+            var secondWire = wires.Last();
+
+            foreach (var wire in wires)
+            {
+                var currentX = center;
+                var currentY = center;
+
+                var path = 0;
+
+                foreach (var command in wire)
+                {
+                    for (var i = 0; i < command.Distance; i++)
+                    {
+                        switch (command.Direction)
+                        {
+                            case Direction.Up:
+                                currentY--;
+                                break;
+                            case Direction.Down:
+                                currentY++;
+                                break;
+                            case Direction.Left:
+                                currentX--;
+                                break;
+                            case Direction.Right:
+                                currentX++;
+                                break;
+                        }
+
+                        path++;
+
+                        if (secondWire == wire)
+                        {
+                            if (fieldIsEnable[currentX][currentY])
+                            {
+                                intersection.Add(field[currentX][currentY] + path);
+                            }
+                        }
+                        else
+                        {
+                            if (field[currentX][currentY] == default(char))
+                            {
+                                field[currentX][currentY] = path;
+                                fieldIsEnable[currentX][currentY] = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            var answer = intersection.Min();
 
             return answer.ToString();
-        }
-
-        private int GetAnswer(int[,] array, List<Coordinates> items)
-        {
-            foreach (var coordinate in items)
-            {
-                if (Check(coordinate, array))
-                    return coordinate.Id;
-            }
-
-            return 0;
-        }
-
-        private bool Check(Coordinates coordinate, int[,] array)
-        {
-            for (var i = coordinate.X; i < coordinate.X + coordinate.Width; i++)
-            {
-                for (var j = coordinate.Y; j < coordinate.Y + coordinate.Height; j++)
-                {
-                    if (array[i, j] > 1)
-                        return false;
-                }
-            }
-
-            return true;
-        }
-
-        private void Increment(int[,] array, Coordinates coordinates)
-        {
-            for (var i = coordinates.X; i < coordinates.X + coordinates.Width; i++)
-            {
-                for (var j = coordinates.Y; j < coordinates.Y + coordinates.Height; j++)
-                {
-                    array[i, j]++;
-                }
-            }
-        }
-
-        private class Coordinates
-        {
-            public int Id { get; }
-
-            public int X { get; }
-            public int Y { get; }
-
-            public int Width { get; }
-            public int Height { get; }
-
-            public Coordinates(int id, int x, int y, int width, int height)
-            {
-                Id = id;
-                X = x;
-                Y = y;
-                Width = width;
-                Height = height;
-            }
         }
     }
 }
