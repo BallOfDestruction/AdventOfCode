@@ -52,8 +52,8 @@ namespace Puzzles_2019
 
             var solver = new ElapsedSolver();
 
-            var task = new DayTwoTaskTwo();
-            var taskData = "task22";
+            var task = new DayThreeTaskOne();
+            var taskData = "task31";
 
             var data = new TaskData(task, taskData, taskData);
 

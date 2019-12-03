@@ -1,76 +1,112 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Shared;
 
 namespace Puzzles_2019.Tasks
 {
     /// <summary>
-	/// https://adventofcode.com/2018/day/3
+	/// https://adventofcode.com/2019/day/3
     /// </summary>
     public class DayThreeTaskOne : ITask
     {
+        private const int SIZE = 100000;
+
         public string Solve(string input)
         {
-            var allStrings = input.Split(new[] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
-            var allIntData = allStrings.Select(w =>
-                w.Split(new[] {'#', '@', ',', ':', 'x', ' '}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse)
-                    .ToArray());
+            var wires = input.Split(new[]{'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Split(',').Select(w => new Command(w)).ToArray()).ToArray();
 
-            var listData = allIntData.Select(w => new Coordinates(w[1], w[2], w[3], w[4])).ToList();
+            var intersection = new List<(int x, int y)>();
 
-            var maxWidth = listData.Select(w => w.X + w.Width).Max() + 1;
-            var maxHeight = listData.Select(w => w.Y + w.Height).Max() + 1;
+            var field = new char[SIZE][];
+            for (var i = 0; i < field.Length; i++)
+            {
+                field[i] = new char[SIZE];
+            }
 
-            var array = new int[maxWidth, maxHeight];
+            var center = SIZE / 2;
 
-            listData.ForEach(w => Increment(array, w));
+            var secondWire = wires.Last();
 
-            var answer = GetAnswer(array, maxWidth, maxHeight);
+            foreach (var wire in wires)
+            {
+                var currentX = center;
+                var currentY = center;
+
+                foreach (var command in wire)
+                {
+                    for (var i = 0; i < command.Distance; i++)
+                    {
+                        switch (command.Direction)
+                        {
+                            case Direction.Up:
+                                currentY--;
+                                break;
+                            case Direction.Down:
+                                currentY++;
+                                break;
+                            case Direction.Left:
+                                currentX--;
+                                break;
+                            case Direction.Right:
+                                currentX++;
+                                break;
+                        }
+
+                        if (secondWire == wire)
+                        {
+                            if (field[currentX][currentY] == '1')
+                            {
+                                intersection.Add((currentX, currentY));
+                            }
+                        }
+                        else
+                        {
+                            field[currentX][currentY] = '1';
+                        }
+                    }
+                }
+            }
+
+            var answer = intersection.Select(w => Math.Abs(w.x - center) + Math.Abs(w.y - center)).Min();
 
             return answer.ToString();
         }
+    }
 
-        private int GetAnswer(int[,] array, int width, int height)
+    public class Command
+    {
+        public Direction Direction { get; set; }
+
+        public int Distance { get; set; }
+
+        public Command(string command)
         {
-            var answer = 0;
-            for (var i = 0; i < width; i++)
+            switch (command[0])
             {
-                for (var j = 0; j < height; j++)
-                {
-                    if (array[i, j] > 1)
-                        answer++;
-                }
+                case 'R':
+                    Direction = Direction.Right;
+                    break;
+                case 'L':
+                    Direction = Direction.Left;
+                    break;
+                case 'U':
+                    Direction = Direction.Up;
+                    break;
+                case 'D':
+                    Direction = Direction.Down;
+                    break;
             }
 
-            return answer;
+            Distance = int.Parse(command.Substring(1));
         }
+    }
 
-        private void Increment(int[,] array, Coordinates coordinates)
-        {
-            for (var i = coordinates.X; i < coordinates.X + coordinates.Width; i++)
-            {
-                for (var j = coordinates.Y; j < coordinates.Y + coordinates.Height; j++)
-                {
-                    array[i, j]++;
-                }
-            }
-        }
-
-        private class Coordinates
-        {
-            public int X { get; }
-            public int Y { get; }
-
-            public int Width { get; }
-            public int Height { get; }
-
-            public Coordinates(int x, int y, int width, int height)
-            {
-                X = x;
-                Y = y;
-                Width = width;
-                Height = height;
-            }
-        }
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
     }
 }
