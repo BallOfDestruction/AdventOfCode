@@ -10,8 +10,8 @@ namespace Puzzles_2019.Tasks
     /// </summary>
     public class DayTwelveTaskOne : ITask
     {
-        private const int INPUT_LENGTH = 5;
-        private const int COUNT_GENERATION = 20;
+        private const int InputLength = 5;
+        private const int CountGeneration = 20;
 
         public string Solve(string input)
         {
@@ -23,7 +23,7 @@ namespace Puzzles_2019.Tasks
             var container = new LineContainer(initData);
             var rulesList = rules.Select(w => new Rule(w)).ToList();
 
-            for (var generation = 0; generation < COUNT_GENERATION; generation++)
+            for (var generation = 0; generation < CountGeneration; generation++)
             {
                 var nextGeneration = container.Position.Select(w => w.Copy()).ToList();
                 //Console.WriteLine(container.Position.Aggregate("", (s, cell) => s + (cell.IsPlant ? "#" : ".")));
@@ -44,23 +44,23 @@ namespace Puzzles_2019.Tasks
                         nextGeneration[i].IsPlant = currentRule.Output;
                 }
 
-                var firstIsPlant = nextGeneration.Take(INPUT_LENGTH).TakeWhile(w => !w.IsPlant).ToList();
-                if (firstIsPlant.Count < INPUT_LENGTH)
+                var firstIsPlant = nextGeneration.Take(InputLength).TakeWhile(w => !w.IsPlant).ToList();
+                if (firstIsPlant.Count < InputLength)
                 {
                     var first = nextGeneration.First();
-                    for (var i = 0; i < INPUT_LENGTH - firstIsPlant.Count; i++)
+                    for (var i = 0; i < InputLength - firstIsPlant.Count; i++)
                     {
                         nextGeneration.Insert(0, new Cell(first.Position - i - 1, '.'));
                     }
                 }
 
-                var endIsPlant = nextGeneration.TakeLast(INPUT_LENGTH).ToList();
+                var endIsPlant = nextGeneration.TakeLast(InputLength).ToList();
                 endIsPlant.Reverse();
                 endIsPlant = endIsPlant.TakeWhile(w => !w.IsPlant).ToList();
-                if (endIsPlant.Count < INPUT_LENGTH)
+                if (endIsPlant.Count < InputLength)
                 {
                     var last = nextGeneration.Last();
-                    for (var i = 0; i < INPUT_LENGTH - endIsPlant.Count; i++)
+                    for (var i = 0; i < InputLength - endIsPlant.Count; i++)
                     {
                         nextGeneration.Add(new Cell(last.Position + i + 1, '.'));
                     }

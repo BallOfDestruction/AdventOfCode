@@ -12,7 +12,7 @@ namespace Puzzles_2019.Tasks
         public string Solve(string input)
         {
             var coordinates = input.Split(new[] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries)
-                .Select((w, index) => new Coordinate(w, index))
+                .Select((w, index) => new Coordinate(w))
                 .ToList();
 
             var maxY = coordinates.Select(w => w.Y).Max();
@@ -83,17 +83,13 @@ namespace Puzzles_2019.Tasks
             public int X { get; }
             public int Y { get; }
 
-            public int Index { get; }
-
-            public Coordinate(string input, int index)
+            public Coordinate(string input)
             {
                 var data = input.Split(new[] {' ', ','}, StringSplitOptions.RemoveEmptyEntries)
                     .Select(int.Parse)
                     .ToArray();
                 X = data[0];
                 Y = data[1];
-
-                Index = index;
             }
 
             public Coordinate(int x, int y)

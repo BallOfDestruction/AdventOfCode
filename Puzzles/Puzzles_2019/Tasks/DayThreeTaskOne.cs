@@ -10,7 +10,7 @@ namespace Puzzles_2019.Tasks
     /// </summary>
     public class DayThreeTaskOne : ITask
     {
-        private const int SIZE = 100000;
+        private const int Size = 100000;
 
         public string Solve(string input)
         {
@@ -18,13 +18,13 @@ namespace Puzzles_2019.Tasks
 
             var intersection = new List<(int x, int y)>();
 
-            var field = new char[SIZE][];
+            var field = new char[Size][];
             for (var i = 0; i < field.Length; i++)
             {
-                field[i] = new char[SIZE];
+                field[i] = new char[Size];
             }
 
-            var center = SIZE / 2;
+            var center = Size / 2;
 
             var secondWire = wires.Last();
 

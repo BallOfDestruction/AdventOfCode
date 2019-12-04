@@ -7,14 +7,14 @@ namespace Puzzles_2018.Tasks
     /// </summary>
     public class DayElevenTaskTwo : ITask
     {
-        private const int MAX_X = 300;
-        private const int MAX_Y = 300;
+        private const int MaxX = 300;
+        private const int MaxY = 300;
 
         public string Solve(string input)
         {
             var gridSerialNumber = int.Parse(input);
 
-            var arrayCells = InitArrayCell(MAX_X, MAX_Y, gridSerialNumber);
+            var arrayCells = InitArrayCell(MaxX, MaxY, gridSerialNumber);
 
             var answer = FindMaxSquare(arrayCells);
 
@@ -26,11 +26,11 @@ namespace Puzzles_2018.Tasks
             GridInfo maxGridInfo = null;
 
             // Can be optimize by dynamic solution
-            for (var size = 1; size <= MAX_X; size++)
+            for (var size = 1; size <= MaxX; size++)
             {
-                for (var x = 0; x < MAX_X - size; x++)
+                for (var x = 0; x < MaxX - size; x++)
                 {
-                    for (var y = 0; y < MAX_Y - size; y++)
+                    for (var y = 0; y < MaxY - size; y++)
                     {
                         long amountOfAll = 0;
 

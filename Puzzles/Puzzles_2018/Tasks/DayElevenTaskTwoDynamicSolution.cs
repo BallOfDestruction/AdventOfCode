@@ -7,7 +7,7 @@ namespace Puzzles_2018.Tasks
     /// </summary>
     public class DayElevenTaskTwoDynamicSolution : ITask
     {
-        private const int MAX_SIZE = 300;
+        private const int MaxSize = 300;
 
         public string Solve(string input)
         {
@@ -25,9 +25,9 @@ namespace Puzzles_2018.Tasks
             Cell maxGridInfo = null;
 
             // Can be optimize by dynamic solution
-            for (var size = 1; size <= MAX_SIZE; size++)
+            for (var size = 1; size <= MaxSize; size++)
             {
-                var maxSize = MAX_SIZE - size;
+                var maxSize = MaxSize - size;
                 for (var x = 0; x < maxSize; x++)
                 {
                     for (var y = 0; y < maxSize; y++)
@@ -57,22 +57,22 @@ namespace Puzzles_2018.Tasks
 
         private static long[][][] InitArrayCell(int gridSerialNumber)
         {
-            var arrayCells = new long[MAX_SIZE][][];
-            for (var size = 0; size < MAX_SIZE; size++)
-                arrayCells[size] = new long[MAX_SIZE][];
+            var arrayCells = new long[MaxSize][][];
+            for (var size = 0; size < MaxSize; size++)
+                arrayCells[size] = new long[MaxSize][];
 
-            for (var size = 0; size < MAX_SIZE; size++)
+            for (var size = 0; size < MaxSize; size++)
             {
-                var localMaxSize = MAX_SIZE - size;
+                var localMaxSize = MaxSize - size;
                 for (var x = 0; x < localMaxSize; x++)
                 {
                     arrayCells[size][x] = new long[localMaxSize];
                 }
             }
 
-            for (var size = 0; size < MAX_SIZE; size++)
+            for (var size = 0; size < MaxSize; size++)
             {
-                var localMaxSize = MAX_SIZE - size;
+                var localMaxSize = MaxSize - size;
                 for (var x = 0; x < localMaxSize; x++)
                 {
                     for (var y = 0; x < localMaxSize; x++)

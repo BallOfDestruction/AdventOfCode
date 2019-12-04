@@ -11,9 +11,9 @@ namespace Puzzles_2018.Tasks
     /// </summary>
     public class DayTwelveTaskTwo : ITask
     {
-        private const int INPUT_LENGTH = 5;
-        private const long COUNT_GENERATION = 50000000000;
-        private const int STEP = 10;
+        private const int InputLength = 5;
+        private const long CountGeneration = 50000000000;
+        private const int Step = 10;
 
         public string Solve(string input)
         {
@@ -28,10 +28,10 @@ namespace Puzzles_2018.Tasks
             long? lastValue = null;
             long? breakGeneration = null;
 
-            for (var generation = 0L; generation < COUNT_GENERATION; generation++)
+            for (var generation = 0L; generation < CountGeneration; generation++)
             {
                 // The idea is that initially increases non-linear, but after increases become linear
-                if (generation % STEP == 0)
+                if (generation % Step == 0)
                 {
                     var answer = plantsLine.ToAnswer();
 
@@ -83,23 +83,23 @@ namespace Puzzles_2018.Tasks
                         nextGeneration[i].IsHavePlant = currentRule.Output;
                 }
 
-                var firstIsPlant = nextGeneration.Take(INPUT_LENGTH).TakeWhile(w => !w.IsHavePlant).ToList();
-                if (firstIsPlant.Count < INPUT_LENGTH)
+                var firstIsPlant = nextGeneration.Take(InputLength).TakeWhile(w => !w.IsHavePlant).ToList();
+                if (firstIsPlant.Count < InputLength)
                 {
                     var first = nextGeneration.First();
-                    for (var i = 0; i < INPUT_LENGTH - firstIsPlant.Count; i++)
+                    for (var i = 0; i < InputLength - firstIsPlant.Count; i++)
                     {
                         nextGeneration.Insert(0, new PlantCell(first.Position - i - 1, '.'));
                     }
                 }
 
-                var endIsPlant = nextGeneration.TakeLast(INPUT_LENGTH).ToList();
+                var endIsPlant = nextGeneration.TakeLast(InputLength).ToList();
                 endIsPlant.Reverse();
                 endIsPlant = endIsPlant.TakeWhile(w => !w.IsHavePlant).ToList();
-                if (endIsPlant.Count < INPUT_LENGTH)
+                if (endIsPlant.Count < InputLength)
                 {
                     var last = nextGeneration.Last();
-                    for (var i = 0; i < INPUT_LENGTH - endIsPlant.Count; i++)
+                    for (var i = 0; i < InputLength - endIsPlant.Count; i++)
                     {
                         nextGeneration.Add(new PlantCell(last.Position + i + 1, '.'));
                     }
@@ -108,7 +108,7 @@ namespace Puzzles_2018.Tasks
                 plantsLine.Position = nextGeneration;
             }
 
-            return (((COUNT_GENERATION - breakGeneration ?? 0) / STEP * lastDiff ?? 1) + lastValue ?? 0).ToString();
+            return (((CountGeneration - breakGeneration ?? 0) / Step * lastDiff ?? 1) + lastValue ?? 0).ToString();
         }
 
         private class PlantsLineContainer

@@ -27,15 +27,15 @@ namespace Puzzles_2019.Tasks
 
             GridInfo maxGridInfo = null;
 
-            for (int i = 0; i < maxX - GridInfo.WIGHT; i++)
+            for (int i = 0; i < maxX - GridInfo.Wight; i++)
             {
-                for (int j = 0; j < maxY - GridInfo.HEIGHT; j++)
+                for (int j = 0; j < maxY - GridInfo.Height; j++)
                 {
                     long amountOfAll = 0;
 
-                    for (int ii = 0; ii < GridInfo.WIGHT; ii++)
+                    for (int ii = 0; ii < GridInfo.Wight; ii++)
                     {
-                        for (int jj = 0; jj < GridInfo.HEIGHT; jj++)
+                        for (int jj = 0; jj < GridInfo.Height; jj++)
                         {
                             amountOfAll += arrayCells[ii + i][jj + j].Power;
                         }
@@ -51,8 +51,8 @@ namespace Puzzles_2019.Tasks
 
         private class GridInfo
         {
-            public const int HEIGHT = 3;
-            public const int WIGHT = 3;
+            public const int Height = 3;
+            public const int Wight = 3;
 
             public int X { get; }
             public int Y { get; }

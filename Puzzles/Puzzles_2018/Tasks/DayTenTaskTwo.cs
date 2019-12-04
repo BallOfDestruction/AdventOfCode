@@ -37,7 +37,7 @@ namespace Puzzles_2018.Tasks
                 var minY = yses.Min();
                 var offsetY = maxY - minY + 1;
 
-                var size = new Size(offsetX, offsetY, minX, minY);
+                var size = new Size(offsetX, offsetY);
                 historySize.Add(size);
 
                 if (lastSize != null && lastSize.CompareTo(size) < 0)
@@ -57,15 +57,10 @@ namespace Puzzles_2018.Tasks
             public int X { get; }
             public int Y { get; }
 
-            public int MinX { get; }
-            public int MinY { get; }
-
-            public Size(int x, int y, int minX, int minY)
+            public Size(int x, int y)
             {
                 X = x;
                 Y = y;
-                MinX = minX;
-                MinY = minY;
             }
 
             public int CompareTo(Size other)

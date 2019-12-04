@@ -9,7 +9,7 @@ namespace Puzzles_2019.Tasks
     /// </summary>
     public class DayTwoTaskTwo : ITask
     {
-        private const int NEEDED_NUMBER = 19690720;
+        private const int NeededNumber = 19690720;
 
         public string Solve(string input)
         {
@@ -42,7 +42,7 @@ namespace Puzzles_2019.Tasks
                         }
                     }
 
-                    if (localArray[0] == NEEDED_NUMBER)
+                    if (localArray[0] == NeededNumber)
                     {
                         return (i * 100 + j).ToString();
                     }
