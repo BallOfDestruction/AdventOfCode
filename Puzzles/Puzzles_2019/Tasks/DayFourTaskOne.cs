@@ -14,19 +14,40 @@ namespace Puzzles_2019.Tasks
         {
             var intes = input.Split('-', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
             var start = intes[0];
-            var end = input[1];
+            var end = intes[1];
 
             var count = 0;
             
-            for (var i = start; i <= end; i++)
+            for (var i = start; i < end; i++)
             {
                 var digits = new List<int>();
 
                 var localNumber = i;
                 
                 while (localNumber > 0) {
-                    digits.Add(localNumber % 10);
+                    digits.Insert(0, localNumber % 10);
                     localNumber /= 10;
+                }
+
+                var isGood = true;
+                
+                for (var j = 0; j < digits.Count - 1; j++)
+                {
+                    if (digits[j] > digits[j + 1])
+                    {
+                        isGood = false;
+                        break;
+                    }
+                }
+
+                if (isGood)
+                {
+                    isGood = digits.GroupBy(w => w).Any(w => w.Count() > 1);
+                }
+
+                if (isGood)
+                {
+                    count++;
                 }
             }
 
